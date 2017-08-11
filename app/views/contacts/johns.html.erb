@@ -1,0 +1,9 @@
+<h1>Your Contacts</h1>
+<% @johns.each do |john| %>
+  <div>
+    <h2><%= link_to john.full_name, "/johns/#{john.id}" %></h2>
+    <h3>Email: <%= john.email %></h3>
+    <h3>Phone: <%= john.japanese_phone %></h3>
+    <h3>Updated: <%= john.display_updated_time %></h3>
+  </div>
+<% end %>
