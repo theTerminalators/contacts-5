@@ -11,9 +11,20 @@ class ContactsController < ApplicationController
     end
 
     def create
-      @contact = Contact.create(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], phone: params[:phone])
+      address = params[:address]
+      coordinates = Geocoder.coordinates(address)
+      input_latitude = coordinates[0]
+      input_longitude = coordinates[1]
+      contact = Contact.create(
+        first_name: params[:first_name],
+        last_name: params[:last_name],
+        email: params[:email],
+        phone: params[:phone],
+        latitude: input_latitude,
+        longitude: input_longitude
+      )
       flash[:success] = "Contact created."
-      redirect_to "/contacts/#{@contact.id}"
+      redirect_to "/contacts/#{contact.id}"
     end
 
     def edit
